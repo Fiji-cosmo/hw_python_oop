@@ -67,12 +67,6 @@ class Running(Training):
     COEFF_GET_MEAN_SPEED_SUBTRACT: int = 20
     MIN_IN_HOUR: int = 60
 
-    def get_distance(self) -> float:
-        return super().get_distance()
-
-    def get_mean_speed(self) -> float:
-        return super().get_mean_speed()
-
     def get_spent_calories(self) -> float:
         self.multiplier_and_subtract_get_mean_speed: float = (
             self.COEFF_GET_MEAN_SPEED_MULTIPLIER * self.get_mean_speed()
@@ -80,9 +74,6 @@ class Running(Training):
         return (self.multiplier_and_subtract_get_mean_speed * self.weight
                 / self.M_IN_KM
                 * (self.duration * self.MIN_IN_HOUR))
-
-    def show_training_info(self) -> InfoMessage:
-        return super().show_training_info()
 
 
 class SportsWalking(Training):
@@ -100,20 +91,11 @@ class SportsWalking(Training):
         super().__init__(action, duration, weight)
         self.height: float = height
 
-    def get_distance(self) -> float:
-        return super().get_distance()
-
-    def get_mean_speed(self) -> float:
-        return super().get_mean_speed()
-
     def get_spent_calories(self) -> float:
         return ((self.COEFF_WEIGHT_MULTIPLIER_1 * self.weight
                 + (self.get_mean_speed() ** 2 // self.height)
                 * self.COEFF_WEIGHT_MULTIPLIER_2 * self.weight)
                 * self.duration * self.MIN_IN_HOUR)
-
-    def show_training_info(self) -> InfoMessage:
-        return super().show_training_info()
 
 
 class Swimming(Training):
@@ -132,9 +114,6 @@ class Swimming(Training):
         super().__init__(action, duration, weight)
         self.length_pool: int = length_pool
         self.count_pool: int = count_pool
-
-    def get_distance(self) -> float:
-        return super().get_distance()
 
     def get_mean_speed(self) -> float:
         return (self.length_pool * self.count_pool
